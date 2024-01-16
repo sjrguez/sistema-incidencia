@@ -1,10 +1,9 @@
-import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { UsersRepository } from './user.repository';
 import { UserMapper } from './user.mapper';
 import { ErrorType, StatusEnum } from 'src/common';
 import { CedulaAlreadyExistException, MailAlreadyExistException } from 'src/common/exceptions';
 import { UpdateUserDto, UserDto, UserResponseDto } from './dto';
-import { Types } from 'mongoose';
 import { User } from './entity/user.schema';
 import { validateObjectId } from 'src/helpers';
 
