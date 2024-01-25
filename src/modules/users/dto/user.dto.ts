@@ -1,6 +1,5 @@
 import { Optional } from "@nestjs/common";
-import { IsEmail, IsEnum, IsNotEmpty, MaxLength } from "class-validator";
-import { StatusEnum } from "src/common";
+import { IsEmail, IsNotEmpty, MaxLength } from "class-validator";
 
 export class UserDto {
     @IsNotEmpty()
@@ -24,9 +23,6 @@ export class UserDto {
 
     @IsNotEmpty()
     address: string
-
-    @IsEnum(StatusEnum)
-    status: StatusEnum
 
     @Optional()
     _id?: any

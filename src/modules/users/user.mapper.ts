@@ -1,9 +1,10 @@
-import {  UserResponseDto, UserDto } from "./dto";
-import { User } from "./entity/user.schema";
+import { StatusEnum } from "src/common";
+import {  UserResponseDto, UserDto, UpdateUserDto } from "./dto";
+import { UserEntity } from "./entity/user.schema";
 
 export class UserMapper {
 
-    static toDto(entity: User): UserResponseDto {
+    static toDto(entity: UserEntity): UserResponseDto {
         const dto = new UserResponseDto();
 
         dto.firstname = entity.firstname;
@@ -18,20 +19,20 @@ export class UserMapper {
     }
 
 
-    static toCreate(dto: UserDto): User {
-        const user = new User()
+    static toCreate(dto: UserDto): UserEntity {
+        const user = new UserEntity()
         user.firstname = dto.firstname
         user.lastname = dto.lastname
         user.mail = dto.mail
         user.telephone = dto.telephone
         user.address = dto.address
-        user.status = dto.status
+        user.status = StatusEnum.ACTIVE
         user.cedula = dto.cedula
         return user;
     }
 
 
-    static toUpdate(user: Partial<User>, dto: Partial<UserDto>) {
+    static toUpdate(user: Partial<UserEntity>, dto: UpdateUserDto) {
         user.firstname = dto.firstname
         user.lastname = dto.lastname
         user.mail = dto.mail
@@ -39,6 +40,7 @@ export class UserMapper {
         user.address = dto.address
         user.status = dto.status
         user.cedula = dto.cedula
+        user.updateAt = new Date();
         return user;
     }
 }

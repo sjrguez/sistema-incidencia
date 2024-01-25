@@ -4,18 +4,19 @@ import { UserMapper } from './user.mapper';
 import { ErrorType, StatusEnum } from 'src/common';
 import { CedulaAlreadyExistException, MailAlreadyExistException } from 'src/common/exceptions';
 import { UpdateUserDto, UserDto, UserResponseDto } from './dto';
-import { User } from './entity/user.schema';
+import { UserEntity } from './entity/user.schema';
 import { validateObjectId } from 'src/helpers';
+import { ClientSession } from 'mongoose';
 
 @Injectable()
 export class UserService {
     constructor(private userRepository: UsersRepository){} 
 
-    async create(userDto: UserDto): Promise<UserResponseDto> {
+    async create(userDto: UserDto, options = {}): Promise<UserResponseDto> {
         let user = UserMapper.toCreate(userDto);
         try {
-            user = await this.userRepository.create(user)
-            return UserMapper.toDto(user)
+            const userResult = await this.userRepository.create(user, options)
+            return UserMapper.toDto(userResult[0])
         } catch (error) {
             if(error.code === ErrorType.DuplicateKey ) {
                 this.throwErrorForMailAndCedula(error, user)
@@ -24,12 +25,12 @@ export class UserService {
         }
     }
 
-    async update(userDto: UpdateUserDto, id: string) {
+    async update(userDto: UpdateUserDto, id: string, options = {}) {
         const userM = await this.findOne(id);
         
         try {
             const user = UserMapper.toUpdate(userM, userDto)
-            return this.userRepository.update(user, id)
+            return this.userRepository.update(user, id, options)
         } catch (error) {
             if(error.code === ErrorType.DuplicateKey ) {
                 this.throwErrorForMailAndCedula(error, userM)
@@ -40,8 +41,8 @@ export class UserService {
     }
 
     async findOne(id: string): Promise<UserResponseDto> {
-        validateObjectId(id);
-        const user = await this.userRepository.findOneById(id)
+        await validateObjectId(id);
+        const user = await this.userRepository.findOne(id)
 
         if(!user) {
             throw new NotFoundException("User not found")
@@ -50,7 +51,7 @@ export class UserService {
     }
 
 
-    private throwErrorForMailAndCedula(error: any, user: User | UserResponseDto) {
+    private throwErrorForMailAndCedula(error: any, user: UserEntity | UserResponseDto) {
         if(Object.keys(error.keyValue).includes('mail'))  {
             throw new MailAlreadyExistException(user.mail)
         }
@@ -61,9 +62,13 @@ export class UserService {
 
     async deleteUser(id: string) {
         const userM = await this.findOne(id);
-
+        const userDto: any = {
+            status:StatusEnum.DELETED,
+            deleteAt: new Date()
+        }
+        
         try {
-            const user = UserMapper.toUpdate(userM, {status:StatusEnum.DELETED})
+            const user = UserMapper.toUpdate(userM, userDto)
             return this.userRepository.update(user, id)
         } catch (error) {
             throw new InternalServerErrorException("Could not delete user.")

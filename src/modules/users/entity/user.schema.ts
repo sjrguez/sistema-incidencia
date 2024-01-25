@@ -2,11 +2,10 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { StatusEnum } from 'src/common/enums/status';
 
+export type UserDocument = HydratedDocument<UserEntity>;
 
-export type UserDocument = HydratedDocument<User>;
-
-@Schema()
-export class User {
+@Schema({collection: "users"})
+export class UserEntity {
     @Prop({required: true})
     firstname: string;
 
@@ -31,11 +30,18 @@ export class User {
     @Prop({default: new Date()})
     createAt: Date
 
+    @Prop({})
+    updateAt: Date
+    
     @Prop()
     deleteAt: Date
 
     _id: string
+
+    constructor(user?: Partial<UserEntity>) {
+        Object.assign(this, user);
+    }
 }
 
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(UserEntity);
