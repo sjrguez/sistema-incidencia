@@ -5,7 +5,8 @@ export class MailAlreadyExistException extends ConflictException {
     constructor(mail: string) {
         super({
           errorType: ErrorType.MailAlreadyExists,
-          message: `this email already exists: ${mail}`
+          message: `this email already exists: ${mail}`,
+          statusCode: 400
         });
       }
     
