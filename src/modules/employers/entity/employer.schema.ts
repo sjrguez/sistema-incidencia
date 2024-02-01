@@ -1,14 +1,14 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from 'mongoose';
 import { PositionEntity } from "../../position/entity/position.schema";
-import { StatusEnum } from "src/common";
+import { BaseEntity } from "src/common";
 import { DepartmentEntity } from "../../department/entity/department.schema";
 import { UserEntity } from "../../users/entity/user.schema";
 
 export type EmployerDocument = mongoose.HydratedDocument<EmployerEntity>
 
 @Schema({collection: "employers", autoIndex: true})
-export class EmployerEntity {
+export class EmployerEntity extends BaseEntity {
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Position' })
     position: PositionEntity
 
@@ -27,21 +27,8 @@ export class EmployerEntity {
     @Prop({required: true})
     password: string;
 
-    @Prop({default: StatusEnum.ACTIVE, enum: StatusEnum})
-    status: StatusEnum
-
-    @Prop({default: new Date()})
-    createAt: Date
-
-    @Prop({})
-    updateAt: Date
-    
-    @Prop()
-    deleteAt: Date
-
-    _id: string
-
     constructor(user?: Partial<UserEntity>) {
+        super()
         Object.assign(this, user);
     }
 }

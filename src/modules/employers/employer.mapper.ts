@@ -51,12 +51,14 @@ export class EmployerMapper {
 
     static toUpdateStatus(dto:UpdateEmployerStatusDto, id: string) {
         const entity = new EmployerEntity({_id: id})
+        entity.updateAt = new Date();
         entity.status = dto.status
         return entity;
     }
 
     static toUpdatePassword( id: string) {
         const entity = new EmployerEntity({_id: id})
+        entity.updateAt = new Date();
         return entity;
     }
 }

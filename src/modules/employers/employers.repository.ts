@@ -49,10 +49,9 @@ export class EmployersRepository {
 
     update(entity: Partial<EmployerEntity>, _id: string, options = {}) {
         return this.EmployerModel.findOneAndUpdate(
-            { _id},  {
-            $set: entity
-        },
-        {runValidators: true,...options}
+            { _id},
+            { $set: entity},
+            {runValidators: true,...options}
         )
     }
 }

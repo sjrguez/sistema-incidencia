@@ -9,6 +9,7 @@ import { DepartmentModule } from './modules/department/department.module';
 import { PositionModule } from './modules/position/position.module';
 import { ResponseTransformerInterceptor } from './common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { TypeRequestModule } from './modules/type-request/type-request.module';
 
 
 @Module({
@@ -24,7 +25,8 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     }),
     EmployersModule,
     DepartmentModule,
-    PositionModule
+    PositionModule,
+    TypeRequestModule
   ],
   controllers: [AppController],
   providers: [AppService, 
