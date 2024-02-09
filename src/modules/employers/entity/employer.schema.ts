@@ -34,4 +34,4 @@ export class EmployerEntity extends BaseEntity {
 }
 
 export const EmployerSchema = SchemaFactory.createForClass(EmployerEntity);
-EmployerSchema.index({ username: 1, employerCode: 1 }, { unique: true });
+EmployerSchema.index({ username: 1, employerCode: 1 }, { unique: true }).plugin(require('mongoose-autopopulate'));

@@ -24,6 +24,7 @@ import { UserModule } from '../users/users.module';
   controllers: [
     EmployersController,
   ],
-  providers: [EmployersService, EmployersRepository]
+  providers: [EmployersService, EmployersRepository],
+  exports: [EmployersService, EmployersRepository, UserModule]
 })
 export class EmployersModule {}

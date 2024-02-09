@@ -14,6 +14,7 @@ import { TypeRequestRepository } from './type-request.respository';
       ),
   ],
   controllers: [TypeRequestController],
-  providers: [TypeRequestService,TypeRequestRepository]
+  providers: [TypeRequestService,TypeRequestRepository],
+  exports: [TypeRequestService,TypeRequestRepository]
 })
 export class TypeRequestModule {}

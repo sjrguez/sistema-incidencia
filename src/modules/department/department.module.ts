@@ -14,6 +14,7 @@ import { DepartmentEntity, DepartmentSchema } from './entity/department.schema';
       ),
   ],
   controllers: [DepartmentController],
-  providers: [DepartmentService,DepartmentRepository]
+  providers: [DepartmentService,DepartmentRepository],
+  exports: [DepartmentService,DepartmentRepository]
 })
 export class DepartmentModule {}
