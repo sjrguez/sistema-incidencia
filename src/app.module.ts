@@ -10,6 +10,7 @@ import { PositionModule } from './modules/position/position.module';
 import { ResponseTransformerInterceptor } from './common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeRequestModule } from './modules/type-request/type-request.module';
+import { RequestModule } from './modules/request/request.module';
 
 
 @Module({
@@ -20,13 +21,18 @@ import { TypeRequestModule } from './modules/type-request/type-request.module';
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         uri: configService.get<string>('MONGODB_URI'),
+        connectionFactory: (connection) => {
+          connection.plugin(require('mongoose-autopopulate'));
+          return connection;
+        }
       }),
       inject: [ConfigService],
     }),
     EmployersModule,
     DepartmentModule,
     PositionModule,
-    TypeRequestModule
+    TypeRequestModule,
+    RequestModule,
   ],
   controllers: [AppController],
   providers: [AppService, 
