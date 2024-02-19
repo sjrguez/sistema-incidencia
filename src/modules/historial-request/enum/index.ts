@@ -1,0 +1,1 @@
+export { HistorialAction } from "./historial-action.enum";
