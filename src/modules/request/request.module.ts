@@ -13,6 +13,8 @@ import { DepartmentModule } from '../department/department.module';
 import { TypeRequestModule } from '../type-request/type-request.module';
 import { EmployersService } from '../employers/employers.service';
 import { PositionEntity, PositionSchema } from '../position/entity/position.schema';
+import { HistorialRequestModule } from '../historial-request/historial-request.module';
+import { HistorialRequestService } from '../historial-request/historial-request.service';
 
 @Module({
   imports: [
@@ -28,13 +30,15 @@ import { PositionEntity, PositionSchema } from '../position/entity/position.sche
       ),
       EmployersModule,
       DepartmentModule,
-      TypeRequestModule
+      TypeRequestModule,
+      HistorialRequestModule
   ],
   controllers: [RequestController],
   providers: [
     RequestService,
     RequestRepository,
-    EmployersService
+    EmployersService,
+    HistorialRequestService
   ]
 })
 export class RequestModule {}

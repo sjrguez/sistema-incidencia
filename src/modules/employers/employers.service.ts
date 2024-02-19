@@ -32,9 +32,7 @@ export class EmployersService {
             employer.password = await HashHelper.encrypt(employerDto.password)
             employer = await this.employerRepository.create(employer, opts)
             await session.commitTransaction()
-            return {
-                message: "Employer has been created"
-            }
+            return "Employer has been created"
         } catch (error) {
             await session.abortTransaction()
             if(error.response) {
@@ -83,9 +81,7 @@ export class EmployersService {
             await this.employerRepository.update(entity, id, opts)
             await session.commitTransaction()
 
-            return {
-                message: "Employer has been updated"
-            }
+            return "Employer has been updated"
         } catch (error) {
             await session.abortTransaction()
 

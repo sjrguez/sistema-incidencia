@@ -25,4 +25,8 @@ export class DepartmentRepository {
             } 
         })
     }
+
+    create(data) {
+        return this.DepartmentModel.create(data)
+    }
 }

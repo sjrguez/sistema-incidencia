@@ -1,7 +1,7 @@
-import { StatusRequestEnum } from "src/common";
 import { DepartmentResponseDto } from "src/modules/department/dto";
 import { EmployerResponseDto } from "src/modules/employers/dto";
 import { TypeRequestResponseDto } from "src/modules/type-request/dto";
+import { StatusRequestEnum } from "../enum/status-request.enum";
 
 export class ResponseRequestDto {
     issue: string;

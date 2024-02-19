@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { BaseEntity, StatusRequestEnum } from 'src/common';
 import { DepartmentEntity } from 'src/modules/department/entity/department.schema';
 import { EmployerEntity } from 'src/modules/employers/entity/employer.schema';
 import { TypeRequestEntity } from 'src/modules/type-request/entity/type-request.schema';
+import { StatusRequestEnum } from '../enum/status-request.enum';
 
 export type RequestDocument = HydratedDocument<RequestEntity>;
 
@@ -57,7 +57,3 @@ export class RequestEntity {
 }
 
 export const RequestSchema = SchemaFactory.createForClass(RequestEntity);
-function overwrite(): (target: RequestEntity, propertyKey: "status") => void {
-    throw new Error('Function not implemented.');
-}
-

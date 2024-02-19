@@ -20,4 +20,9 @@ export class DepartmentService {
         if(!deparment) throw new NotFoundException("deparment not found")
         return DepartmentMapper.toDto(deparment)
     }
+
+    async create(data: any) {
+        await this.departmentRepository.create(data)
+        return "Department has been created"
+    }
 }

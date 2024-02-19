@@ -12,8 +12,8 @@ import { PositionEntity } from "../position/entity/position.schema";
 export class RequestRepository {
 
     constructor(
-        @InjectModel(RequestEntity.name) private RequestModel: Model<RequestEntity>,
-        @InjectModel(EmployerEntity.name) public EmployerModel: Model<EmployerEntity>,
+        @InjectModel(RequestEntity.name) public RequestModel: Model<RequestEntity>,
+        @InjectModel(EmployerEntity.name) private EmployerModel: Model<EmployerEntity>,
         @InjectModel(UserEntity.name) private UserModel: Model<UserEntity>,
         @InjectModel(DepartmentEntity.name) private DepartmentModel: Model<DepartmentEntity>,
         @InjectModel(TypeRequestEntity.name) private TypeRequestModel: Model<TypeRequestEntity>,
@@ -49,8 +49,8 @@ export class RequestRepository {
     }
 
 
-    create(entity: RequestEntity) {
-        return this.RequestModel.create(entity)
+    create(entity: RequestEntity, opts = {}) {
+        return this.RequestModel.create([entity], opts)
     }
 
     findOne(_id: string) {
@@ -86,11 +86,11 @@ export class RequestRepository {
         })
     }
 
-    update(entity: Partial<RequestEntity>, _id: string) {
-        return this.RequestModel.findOneAndUpdate(
+    update(entity: Partial<RequestEntity>, _id: string, opts: any) {
+        return this.RequestModel.updateOne(
             { _id},
             { $set: entity},
-            {runValidators: true}
+            {runValidators: true, ...opts},
         )
     }
 

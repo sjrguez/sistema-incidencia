@@ -11,6 +11,7 @@ import { ResponseTransformerInterceptor } from './common';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeRequestModule } from './modules/type-request/type-request.module';
 import { RequestModule } from './modules/request/request.module';
+import { HistorialRequestModule } from './modules/historial-request/historial-request.module';
 
 
 @Module({
@@ -33,6 +34,7 @@ import { RequestModule } from './modules/request/request.module';
     PositionModule,
     TypeRequestModule,
     RequestModule,
+    HistorialRequestModule,
   ],
   controllers: [AppController],
   providers: [AppService, 

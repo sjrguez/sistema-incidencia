@@ -4,8 +4,7 @@ import { EmployerMapper } from "../employers/employer.mapper";
 import { EmployerEntity } from "../employers/entity/employer.schema";
 import { TypeRequestEntity } from "../type-request/entity/type-request.schema";
 import { TypeRequestMapper } from "../type-request/type-request.mapper";
-import { UserMapper } from "../users/user.mapper";
-import { CreateRequestDto, ResponseRequestDto, UpdateRequestDto, UpdateStatusRequestDto } from "./dto";
+import { CreateRequestDto, ResponseRequestDto, UpdateRequestDto } from "./dto";
 import { RequestEntity } from "./entity/request.schema";
 
 export class RequestMapper {
@@ -49,20 +48,12 @@ export class RequestMapper {
     static toUpdate(dto: UpdateRequestDto, id: string) {
         let entity = new RequestEntity({_id: id})
 
-        entity = Object.assign(dto,entity )
+        entity = Object.assign({...dto},entity )
 
         entity.asignedTo = new EmployerEntity({_id: dto.asignedTo})
         entity.createdBy = new EmployerEntity({_id: dto.createdBy})
         entity.department = new DepartmentEntity({_id: dto.department})
         entity.typeRequest = new TypeRequestEntity({_id: dto.typeRequest})
-        return entity
-    }
-
-
-    static toUpdateStatus(dto: UpdateStatusRequestDto, id: string) {
-        let entity = new RequestEntity({_id: id})
-
-        entity.status = dto.status
         return entity
     }
 }
