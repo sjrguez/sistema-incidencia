@@ -3,7 +3,7 @@ import mongoose, { HydratedDocument } from "mongoose";
 import { EmployerEntity } from "src/modules/employers/entity/employer.schema";
 import { RequestEntity } from "src/modules/request/entity/request.schema";
 import { HistorialAction } from "../enum";
-export type DepartmentDocument = HydratedDocument<HistorialRequestEntity>;
+export type HistorialRequestDocument = HydratedDocument<HistorialRequestEntity>;
 
 
 class ChangesRequest {

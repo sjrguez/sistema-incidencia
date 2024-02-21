@@ -12,6 +12,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeRequestModule } from './modules/type-request/type-request.module';
 import { RequestModule } from './modules/request/request.module';
 import { HistorialRequestModule } from './modules/historial-request/historial-request.module';
+import { FilesRequestModule } from './files-request/files-request.module';
 
 
 @Module({
@@ -35,6 +36,7 @@ import { HistorialRequestModule } from './modules/historial-request/historial-re
     TypeRequestModule,
     RequestModule,
     HistorialRequestModule,
+    FilesRequestModule,
   ],
   controllers: [AppController],
   providers: [AppService, 
